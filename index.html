@@ -9,69 +9,108 @@
 <body>
   <main>
     <h1 class="page-title">Mis tarjetas</h1>
+    <p class="scroll-hint">Desplázate con las flechas ← →, la rueda del mouse o arrastra las tarjetas.</p>
 
-    <!-- Desliza horizontalmente para ver las tarjetas. Duplica un article para añadir más. -->
     <section class="cards-scroll" aria-label="Tarjetas" tabindex="0">
+      <!-- Las 10 tarjetas usan temporalmente memoji.png. Cambia las imágenes cuando tengas los otros emojis. -->
       <article class="card">
-        <div class="avatar-container">
-          <img src="memoji.png" alt="Mi Memoji personal" class="memoji">
-        </div>
-        <h2>Welcome!</h2>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 1</h2>
         <p>@midimanxg</p>
       </article>
-
-      <!-- Para personalizar cada tarjeta, cambia el emoji, el título y el texto. -->
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Saludo">👋</span></div>
-        <h2>¡Hola!</h2>
-        <p>Un gusto conocerte</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 2</h2>
+        <p>Texto de ejemplo 2</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Estrella">🌟</span></div>
-        <h2>Ideas brillantes</h2>
-        <p>Siempre creando</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 3</h2>
+        <p>Texto de ejemplo 3</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Cohete">🚀</span></div>
-        <h2>¡A despegar!</h2>
-        <p>Vamos por nuevos proyectos</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 4</h2>
+        <p>Texto de ejemplo 4</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Fuego">🔥</span></div>
-        <h2>Con energía</h2>
-        <p>Dando lo mejor cada día</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 5</h2>
+        <p>Texto de ejemplo 5</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Corazón">💜</span></div>
-        <h2>Hecho con cariño</h2>
-        <p>Compartiendo buena vibra</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 6</h2>
+        <p>Texto de ejemplo 6</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Rayo">⚡</span></div>
-        <h2>Ideas rápidas</h2>
-        <p>Innovación en marcha</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 7</h2>
+        <p>Texto de ejemplo 7</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Planeta">🪐</span></div>
-        <h2>Explora más</h2>
-        <p>La curiosidad no tiene límites</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 8</h2>
+        <p>Texto de ejemplo 8</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Auriculares">🎧</span></div>
-        <h2>En mi mundo</h2>
-        <p>Música, creatividad y enfoque</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 9</h2>
+        <p>Texto de ejemplo 9</p>
       </article>
       <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Taza de café">☕</span></div>
-        <h2>Hora de crear</h2>
-        <p>Una idea a la vez</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><span class="emoji" role="img" aria-label="Arcoíris">🌈</span></div>
-        <h2>Todo es posible</h2>
-        <p>Un día lleno de color</p>
+        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+        <h2>Tarjeta 10</h2>
+        <p>Texto de ejemplo 10</p>
       </article>
     </section>
   </main>
+
+  <script>
+    const cardsScroll = document.querySelector('.cards-scroll');
+
+    // Permite desplazarse horizontalmente con la rueda vertical del mouse.
+    cardsScroll.addEventListener('wheel', (event) => {
+      if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+        event.preventDefault();
+        cardsScroll.scrollLeft += event.deltaY;
+      }
+    }, { passive: false });
+
+    // Permite arrastrar la fila con el botón izquierdo del mouse.
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    cardsScroll.addEventListener('mousedown', (event) => {
+      if (event.button !== 0) return;
+      isDragging = true;
+      startX = event.pageX;
+      startScrollLeft = cardsScroll.scrollLeft;
+      cardsScroll.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (event) => {
+      if (!isDragging) return;
+      cardsScroll.scrollLeft = startScrollLeft - (event.pageX - startX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      cardsScroll.classList.remove('is-dragging');
+    });
+
+    // Las flechas desplazan una tarjeta cuando la fila tiene el foco.
+    cardsScroll.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const card = cardsScroll.querySelector('.card');
+        const cardWidth = card.getBoundingClientRect().width;
+        const gap = parseFloat(getComputedStyle(cardsScroll).columnGap) || 0;
+        cardsScroll.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+      }
+    });
+  </script>
 </body>
 </html>

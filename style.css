@@ -19,22 +19,40 @@ main {
 .page-title {
   font-size: 1.5rem;
   font-weight: 600;
+  margin: 0 1.5rem 0.5rem;
+}
+
+.scroll-hint {
   margin: 0 1.5rem 1.5rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
 }
 
 .cards-scroll {
   display: flex;
-  gap: 1.25rem;
+  gap: 4rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  padding: 0.5rem 1.5rem 1.5rem;
+  padding: 0.75rem 1.5rem 2rem;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  touch-action: pan-x;
+  scrollbar-width: thin;
+  scrollbar-color: #64748b #1e293b;
 }
 
 .cards-scroll:focus-visible {
   outline: 2px solid #94a3b8;
   outline-offset: -2px;
+}
+
+.cards-scroll.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
 }
 
 .card {
@@ -58,18 +76,14 @@ main {
   margin-bottom: 1.5rem;
 }
 
-.memoji,
-.emoji {
+.memoji {
   display: block;
   width: 130px;
   height: 130px;
   object-fit: contain;
   animation: flotar 3s ease-in-out infinite;
-}
-
-.emoji {
-  font-size: 6rem;
-  line-height: 130px;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 @keyframes flotar {
@@ -97,6 +111,10 @@ main {
     padding-top: 2rem;
   }
 
+  .cards-scroll {
+    gap: 2rem;
+  }
+
   .card {
     flex-basis: min(300px, calc(100vw - 3rem));
     padding: 2rem;
@@ -104,8 +122,9 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .memoji,
-  .emoji {
-    animation: none;
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
