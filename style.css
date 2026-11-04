@@ -8,13 +8,42 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: #0f172a;
   color: #f8fafc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
+  padding: 3rem 0;
+}
+
+main {
+  width: 100%;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 1.5rem 1.5rem;
+}
+
+.cards-scroll {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 0.5rem 1.5rem 1.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cards-scroll:focus-visible {
+  outline: 2px solid #94a3b8;
+  outline-offset: -2px;
 }
 
 .card {
+  flex: 0 0 300px;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -22,19 +51,25 @@ body {
   border-radius: 1.5rem;
   text-align: center;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-  max-width: 350px;
-  width: calc(100% - 2rem);
+  scroll-snap-align: start;
 }
 
 .avatar-container {
   margin-bottom: 1.5rem;
 }
 
-.memoji {
+.memoji,
+.emoji {
+  display: block;
   width: 130px;
   height: 130px;
   object-fit: contain;
   animation: flotar 3s ease-in-out infinite;
+}
+
+.emoji {
+  font-size: 6rem;
+  line-height: 130px;
 }
 
 @keyframes flotar {
@@ -46,19 +81,31 @@ body {
   }
 }
 
-h1 {
+.card h2 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
-p {
+.card p {
   font-size: 0.95rem;
   color: #94a3b8;
 }
 
+@media (max-width: 480px) {
+  body {
+    padding-top: 2rem;
+  }
+
+  .card {
+    flex-basis: min(300px, calc(100vw - 3rem));
+    padding: 2rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .memoji {
+  .memoji,
+  .emoji {
     animation: none;
   }
 }
