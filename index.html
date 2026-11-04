@@ -9,67 +9,94 @@
 <body>
   <main>
     <h1 class="page-title">Mis tarjetas</h1>
-    <p class="scroll-hint">Desplázate con las flechas ← →, la rueda del mouse o arrastra las tarjetas.</p>
+    <p class="scroll-hint">Usa las flechas, la rueda del mouse o arrastra para desplazarte.</p>
 
-    <section class="cards-scroll" aria-label="Tarjetas" tabindex="0">
-      <!-- Las 10 tarjetas usan temporalmente memoji.png. Cambia las imágenes cuando tengas los otros emojis. -->
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 1</h2>
-        <p>@midimanxg</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 2</h2>
-        <p>Texto de ejemplo 2</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 3</h2>
-        <p>Texto de ejemplo 3</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 4</h2>
-        <p>Texto de ejemplo 4</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 5</h2>
-        <p>Texto de ejemplo 5</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 6</h2>
-        <p>Texto de ejemplo 6</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 7</h2>
-        <p>Texto de ejemplo 7</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 8</h2>
-        <p>Texto de ejemplo 8</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 9</h2>
-        <p>Texto de ejemplo 9</p>
-      </article>
-      <article class="card">
-        <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
-        <h2>Tarjeta 10</h2>
-        <p>Texto de ejemplo 10</p>
-      </article>
-    </section>
+    <div class="carousel">
+      <button class="carousel-button carousel-button--left" type="button" aria-label="Desplazar hacia la izquierda">&#8592;</button>
+      <section class="cards-scroll" aria-label="Tarjetas" tabindex="0">
+        <!-- Las tarjetas usan memoji.png temporalmente. Sustituye la imagen cuando tengas los otros emojis. -->
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 1</h2>
+          <p>@midimanxg</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 2</h2>
+          <p>Texto de ejemplo 2</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 3</h2>
+          <p>Texto de ejemplo 3</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 4</h2>
+          <p>Texto de ejemplo 4</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 5</h2>
+          <p>Texto de ejemplo 5</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 6</h2>
+          <p>Texto de ejemplo 6</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 7</h2>
+          <p>Texto de ejemplo 7</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 8</h2>
+          <p>Texto de ejemplo 8</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 9</h2>
+          <p>Texto de ejemplo 9</p>
+        </article>
+        <article class="card">
+          <div class="avatar-container"><img src="memoji.png" alt="Mi Memoji personal" class="memoji"></div>
+          <h2>Tarjeta 10</h2>
+          <p>Texto de ejemplo 10</p>
+        </article>
+      </section>
+      <button class="carousel-button carousel-button--right" type="button" aria-label="Desplazar hacia la derecha">&#8594;</button>
+    </div>
   </main>
 
   <script>
     const cardsScroll = document.querySelector('.cards-scroll');
+    const cards = cardsScroll.querySelectorAll('.card');
+    const leftButton = document.querySelector('.carousel-button--left');
+    const rightButton = document.querySelector('.carousel-button--right');
 
-    // Permite desplazarse horizontalmente con la rueda vertical del mouse.
+    function updateButtons() {
+      const maxScroll = cardsScroll.scrollWidth - cardsScroll.clientWidth;
+      leftButton.disabled = cardsScroll.scrollLeft <= 0;
+      rightButton.disabled = cardsScroll.scrollLeft >= maxScroll - 1;
+    }
+
+    function scrollOneCard(direction) {
+      const card = cardsScroll.querySelector('.card');
+      const gap = parseFloat(getComputedStyle(cardsScroll).columnGap) || 0;
+      cardsScroll.scrollBy({
+        left: direction * (card.getBoundingClientRect().width + gap),
+        behavior: 'smooth'
+      });
+    }
+
+    leftButton.addEventListener('click', () => scrollOneCard(-1));
+    rightButton.addEventListener('click', () => scrollOneCard(1));
+    cardsScroll.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+
+    // La rueda vertical del mouse desplaza el carrusel horizontalmente.
     cardsScroll.addEventListener('wheel', (event) => {
       if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
         event.preventDefault();
@@ -77,7 +104,7 @@
       }
     }, { passive: false });
 
-    // Permite arrastrar la fila con el botón izquierdo del mouse.
+    // Arrastrar con el botón izquierdo del mouse.
     let isDragging = false;
     let startX = 0;
     let startScrollLeft = 0;
@@ -91,8 +118,7 @@
     });
 
     window.addEventListener('mousemove', (event) => {
-      if (!isDragging) return;
-      cardsScroll.scrollLeft = startScrollLeft - (event.pageX - startX);
+      if (isDragging) cardsScroll.scrollLeft = startScrollLeft - (event.pageX - startX);
     });
 
     window.addEventListener('mouseup', () => {
@@ -100,17 +126,15 @@
       cardsScroll.classList.remove('is-dragging');
     });
 
-    // Las flechas desplazan una tarjeta cuando la fila tiene el foco.
+    // Las flechas del teclado recorren el carrusel cuando tiene el foco.
     cardsScroll.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
         event.preventDefault();
-        const direction = event.key === 'ArrowRight' ? 1 : -1;
-        const card = cardsScroll.querySelector('.card');
-        const cardWidth = card.getBoundingClientRect().width;
-        const gap = parseFloat(getComputedStyle(cardsScroll).columnGap) || 0;
-        cardsScroll.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+        scrollOneCard(event.key === 'ArrowRight' ? 1 : -1);
       }
     });
+
+    updateButtons();
   </script>
 </body>
 </html>

@@ -28,6 +28,10 @@ main {
   font-size: 0.95rem;
 }
 
+.carousel {
+  position: relative;
+}
+
 .cards-scroll {
   display: flex;
   gap: 4rem;
@@ -70,6 +74,41 @@ main {
   text-align: center;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
   scroll-snap-align: start;
+}
+
+.carousel-button {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-button:hover:not(:disabled) {
+  background: #334155;
+}
+
+.carousel-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.carousel-button--left {
+  left: 0.5rem;
+}
+
+.carousel-button--right {
+  right: 0.5rem;
 }
 
 .avatar-container {
@@ -118,6 +157,14 @@ main {
   .card {
     flex-basis: min(300px, calc(100vw - 3rem));
     padding: 2rem;
+  }
+
+  .carousel-button--left {
+    left: 0.25rem;
+  }
+
+  .carousel-button--right {
+    right: 0.25rem;
   }
 }
 
