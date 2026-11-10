@@ -1,7 +1,10 @@
 /**
  * Bouncing Memojis Background
- * Duplica la imagen memoji.png y genera físicas de rebote continuo
- * en toda la pantalla del explorador (chocando con los bordes y entre sí).
+ * Duplica las 26 imágenes de memojis con físicas de rebote continuo:
+ * - Chocan con los 4 bordes del navegador
+ * - Colisionan elásticamente entre sí
+ * - Rebotan contra los bordes de la tarjeta central como pared sólida
+ * - Tamaño refinado y estético para mantener la armonía visual
  */
 
 (function () {
@@ -10,7 +13,7 @@
 
   const ctx = canvas.getContext('2d');
 
-  // Lista de todas las imágenes de memojis disponibles (memoji.png hasta memoji26.png)
+  // Catálogo completo de las 26 imágenes de memojis
   const memojiSources = [
     'memoji.png',
     ...Array.from({ length: 25 }, (_, i) => `memoji${i + 2}.png`)
@@ -35,10 +38,9 @@
   let width = window.innerWidth;
   let height = window.innerHeight;
   let particles = [];
-  let isImageLoaded = false;
   let animationFrameId = null;
 
-  // Detección de la tarjeta central como pared sólida
+  // Detección de los límites de la tarjeta central como pared sólida
   const cardElement = document.querySelector('.card');
   let cardRect = null;
 
@@ -86,10 +88,10 @@
       const dx = p.x - e.clientX;
       const dy = p.y - e.clientY;
       const dist = Math.hypot(dx, dy);
-      const impulseRadius = 250;
+      const impulseRadius = 220;
 
       if (dist < impulseRadius && dist > 0) {
-        const force = (1 - dist / impulseRadius) * 8;
+        const force = (1 - dist / impulseRadius) * 7;
         p.vx += (dx / dist) * force;
         p.vy += (dy / dist) * force;
         p.vRot = (Math.random() - 0.5) * 0.08;
@@ -105,8 +107,8 @@
       this.img = img;
       this.mass = radius * radius;
 
-      // Velocidad aleatoria inicial
-      const speed = 1.2 + Math.random() * 1.5;
+      // Velocidad aleatoria inicial equilibrada
+      const speed = 1.0 + Math.random() * 1.4;
       const angle = Math.random() * Math.PI * 2;
       this.vx = Math.cos(angle) * speed;
       this.vy = Math.sin(angle) * speed;
@@ -122,7 +124,7 @@
       this.y += this.vy;
       this.rotation += this.vRot;
 
-      // Rebote contra bordes horizontales
+      // Rebote contra bordes horizontales de la pantalla
       if (this.x - this.radius < 0) {
         this.x = this.radius;
         this.vx = Math.abs(this.vx);
@@ -131,7 +133,7 @@
         this.vx = -Math.abs(this.vx);
       }
 
-      // Rebote contra bordes verticales
+      // Rebote contra bordes verticales de la pantalla
       if (this.y - this.radius < 0) {
         this.y = this.radius;
         this.vy = Math.abs(this.vy);
@@ -151,7 +153,7 @@
 
         if (dist < this.radius) {
           if (dist === 0) {
-            // Expulsar al borde más cercano si quedó dentro
+            // Expulsar hacia el borde más cercano si quedó dentro
             const dl = Math.abs(this.x - cardRect.left);
             const dr = Math.abs(cardRect.right - this.x);
             const dt = Math.abs(this.y - cardRect.top);
@@ -182,24 +184,24 @@
         }
       }
 
-      // Interacción con mouse/touch (efecto empuje)
+      // Interacción con mouse/touch (efecto empuje suave)
       if (mouse.x !== null && mouse.y !== null) {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         const dist = Math.hypot(dx, dy);
-        const repelRadius = 130;
+        const repelRadius = 120;
 
         if (dist < repelRadius && dist > 0) {
-          const force = (1 - dist / repelRadius) * 1.8;
+          const force = (1 - dist / repelRadius) * 1.6;
           this.vx += (dx / dist) * force;
           this.vy += (dy / dist) * force;
         }
       }
 
-      // Normalizar velocidad para mantener el movimiento perpetuo fluido
+      // Normalizar velocidad para mantener movimiento continuo agradable
       const currentSpeed = Math.hypot(this.vx, this.vy);
-      const minSpeed = 1.0;
-      const maxSpeed = 3.5;
+      const minSpeed = 0.9;
+      const maxSpeed = 3.2;
 
       if (currentSpeed < minSpeed && currentSpeed > 0) {
         this.vx = (this.vx / currentSpeed) * minSpeed;
@@ -228,7 +230,7 @@
     }
   }
 
-  // Resolver colisiones elásticas entre memojis
+  // Resolver colisiones elásticas entre memojis al chocar
   function resolveCollisions() {
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
@@ -241,11 +243,10 @@
         const minDist = p1.radius + p2.radius;
 
         if (dist < minDist && dist > 0) {
-          // Vector normal
           const nx = dx / dist;
           const ny = dy / dist;
 
-          // Separar partículas para evitar solapamientos
+          // Despejar solapamiento
           const overlap = (minDist - dist) * 0.5;
           p1.x -= nx * overlap;
           p1.y -= ny * overlap;
@@ -262,7 +263,7 @@
           p2.vx += impulse * p1.mass * nx;
           p2.vy += impulse * p1.mass * ny;
 
-          // Variar rotación al chocar
+          // Sutil variación de rotación al chocar
           p1.vRot = (Math.random() - 0.5) * 0.03;
           p2.vRot = (Math.random() - 0.5) * 0.03;
         }
@@ -274,8 +275,8 @@
     particles = [];
     updateCardRect();
 
-    // Cantidad adaptativa según el tamaño de la pantalla (entre 8 y 20)
-    const count = Math.min(22, Math.max(8, Math.floor((width * height) / 52000)));
+    // Cantidad adaptativa según el tamaño de la pantalla (hasta 26 memojis)
+    const count = Math.min(26, Math.max(12, Math.floor((width * height) / 38000)));
 
     function isInsideCard(px, py, pr) {
       if (!cardRect) return false;
@@ -292,8 +293,9 @@
 
     for (let i = 0; i < count; i++) {
       const imgForParticle = shuffledImages[i % shuffledImages.length];
-      // Tamaños variables para darle dinamismo y profundidad
-      const radius = 28 + Math.random() * 22; // Diámetro entre 56px y 100px
+
+      // Tamaño refinado y estético: diámetro entre 40px y 62px
+      const radius = 20 + Math.random() * 11;
 
       let x = radius + Math.random() * (width - radius * 2);
       let y = radius + Math.random() * (height - radius * 2);
@@ -328,7 +330,7 @@
 
     updateCardRect();
 
-    // Reposicionar partículas si quedaron fuera de pantalla o dentro de la tarjeta
+    // Reposicionar partículas si quedaron fuera de pantalla o dentro de la tarjeta tras resize
     particles.forEach((p) => {
       if (p.x + p.radius > width) p.x = width - p.radius;
       if (p.x - p.radius < 0) p.x = p.radius;
